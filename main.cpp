@@ -32,6 +32,11 @@ public:
     event = inputEvent;
     return *this;
   }
+
+  std::string getPlace() { return place; }
+  unsigned int getPrice() { return price; }
+  std::string getEvent() { return event; }
+
   void print() const {
     std::cout << "\nPlace: " << place << "\nPrice: " << price
               << "\nEvent: " << event << "\n\n";
