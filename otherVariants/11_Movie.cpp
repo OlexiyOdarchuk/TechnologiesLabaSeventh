@@ -5,78 +5,60 @@ class Movie {
 private:
   std::string title;
   std::string genre;
-  int duration;
+  unsigned int duration;
 
 public:
-  Movie() : title(""), genre(""), duration(0) {}
+  Movie() : title("Unknown"), genre("Unknown"), duration(0) {
+    std::cout << "Movie created" << std::endl;
+  }
 
-  Movie(const std::string &title, const std::string &genre, int duration)
-      : title(title), genre(genre), duration(duration) {}
+  Movie(std::string inputTitle, std::string inputGenre,
+        unsigned int inputDuration)
+      : title(inputTitle), genre(inputGenre), duration(inputDuration) {
+    std::cout << "Movie created" << std::endl;
+  }
 
-  ~Movie() {
-    std::cout << "Destructor called for Movie " << title << std::endl;
+  ~Movie() { std::cout << "Movie destroyed" << std::endl; }
+
+  Movie &setTitle(std::string inputTitle) {
+    title = inputTitle;
+    return *this;
+  }
+
+  Movie &setGenre(std::string inputGenre) {
+    genre = inputGenre;
+    return *this;
+  }
+
+  Movie &setDuration(unsigned int inputDuration) {
+    duration = inputDuration;
+    return *this;
   }
 
   std::string getTitle() const { return title; }
   std::string getGenre() const { return genre; }
-  int getDuration() const { return duration; }
-
-  Movie &setTitle(const std::string &title) {
-    this->title = title;
-    return *this;
-  }
-
-  Movie &setGenre(const std::string &genre) {
-    this->genre = genre;
-    return *this;
-  }
-
-  Movie &setDuration(int duration) {
-    this->duration = duration;
-    return *this;
-  }
+  unsigned int getDuration() const { return duration; }
 
   bool isLong() const { return duration > 120; }
 
   void print() const {
-    std::cout << "Movie Information:" << std::endl;
-    std::cout << "Title: " << title << std::endl;
-    std::cout << "Genre: " << genre << std::endl;
-    std::cout << "Duration: " << duration << " minutes" << std::endl;
+    std::cout << "\nTitle: " << title << "\nGenre: " << genre
+              << "\nDuration: " << duration << " minutes\n\n";
   }
 };
 
 int main() {
   Movie movie1;
-  Movie movie2("Inception", "Sci-Fi", 148);
-
-  std::cout << "Movie 1 (default constructor):" << std::endl;
   movie1.print();
-  std::cout << std::endl;
 
-  std::cout << "Movie 2 (constructor with parameters):" << std::endl;
+  Movie movie2("The Matrix", "Sci-Fi", 136);
   movie2.print();
-  std::cout << std::endl;
 
-  std::cout << "Updating Movie 1's information..." << std::endl;
-  movie1.setTitle("The Dark Knight").setGenre("Action").setDuration(152);
-  movie1.print();
-  std::cout << std::endl;
-
-  std::cout << "Final Information:" << std::endl;
-  movie1.print();
+  movie2.setTitle("The Matrix Reloaded").setGenre("Sci-Fi").setDuration(138);
   movie2.print();
-  std::cout << std::endl;
 
-  std::cout << "Is '" << movie1.getTitle() << "' a long movie? "
-            << (movie1.isLong() ? "Yes" : "No") << std::endl;
-  std::cout << "Is '" << movie2.getTitle() << "' a long movie? "
+  std::cout << "Is \"" << movie2.getTitle() << "\" a long movie? "
             << (movie2.isLong() ? "Yes" : "No") << std::endl;
-
-  Movie movie3("Short Movie", "Comedy", 90);
-  movie3.print();
-  std::cout << "Is '" << movie3.getTitle() << "' a long movie? "
-            << (movie3.isLong() ? "Yes" : "No") << std::endl;
 
   return 0;
 }
